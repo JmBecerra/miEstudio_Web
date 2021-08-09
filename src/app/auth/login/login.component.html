@@ -1,0 +1,72 @@
+
+
+    <div class="d-flex justify-content-center flex-wrap">
+    <div class="row mt-5">
+        <div class="col mt-5">
+            <h1 class="text-center text-white">WOLFF FIT</h1>
+            <h2 class="text-center text-white">Entrenamiento Personal</h2>
+            <hr class=" text-white">
+            <pre class="text-center text-white fw-light">Accede al panel de gestión</pre>
+    
+        </div>
+        <div class="row">
+                <form autocomplete="off" [formGroup]="formLogin">
+                    <!-- Email -->
+                    <div class="row mb-3">
+                        <mat-form-field appearance=fill matAutocompleteOrigin="off">                   
+                            <mat-label >Introduce el email</mat-label>
+                            <input matInput                                 
+                                   placeholder="pat@example.com" 
+                                   formControlName="email" >
+                            <mat-error class="form-text text-danger"
+                                *ngIf="campoNoValido('email')">
+                                {{  emailErrorMsg }}
+                            </mat-error>
+                        </mat-form-field>
+             
+                    </div>
+        
+                    <!-- Password -->
+                    <div class="row mb-3 ">
+                        <mat-form-field appearance=fill matAutocompleteOrigin="off">                   
+                            <mat-label >Introduce la contreseña</mat-label>
+                            <input matInput                                 
+                                   placeholder="Paassword de tu cuenta" 
+                                   formControlName="password" >
+                            <mat-error class="form-text text-danger"
+                            *ngIf="campoNoValido('password')">
+                            La contraseña debe ser mayornde 6 caracteres
+                            </mat-error>
+                        </mat-form-field>
+             
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button mat-raised-button 
+                                mat-center
+                                color="primary"
+                                class="justify-content-center"
+                                (click)="login()">
+                            Login
+                        </button>
+
+                    </div>
+                    
+                    
+                </form>
+
+            </div>   
+            <div class="row mt-5">
+                <div class="col">
+                    <button mat-raised-button 
+                            color="info"
+                            class="float-end"
+                            (click)="ingresarSinLogin()">
+                        Acceder a la Web
+                    </button>
+                </div>
+            </div>
+    </div>
+
+</div>
+
+
