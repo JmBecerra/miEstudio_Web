@@ -1,0 +1,131 @@
+<div *ngIf="!hidden">
+    <div class="row m-5">
+        <div class="col">
+            <h1 class="text-white">{{ (idCliente) ? 'Editar': 'Nueva'  }} medición</h1>
+            <hr class="text-white">
+        </div>
+    </div>
+    <div class="row m-5">
+        <div class="col">
+            <form autocomplete="off" [formGroup]="formNuevaMedicion" (ngSubmit)="submitFormulario()">
+               
+                <div class="col">
+                    <!-- Fecha -->
+                    <mat-form-field appearance="fill"
+                        class="example-form-field">
+                        <mat-label>Fecha</mat-label>
+                        <input matInput
+                            [matDatepicker]="fecha"
+                            formControlName="fecha">
+                        <mat-datepicker-toggle matSuffix
+                            [for]="fecha"></mat-datepicker-toggle>
+                        <mat-datepicker #fecha>
+                            <mat-datepicker-actions>
+                                <button mat-button
+                                    matDatepickerCancel>Cancelar</button>
+                                <button mat-raised-button
+                                    color="primary"
+                                    matDatepickerApply>Aceptar</button>
+                            </mat-datepicker-actions>
+                        </mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col d-flex justify-content-between mb-3">
+                    <!-- Peso -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Peso</mat-label>
+                        <input matInput
+                        placeholder="Introduce el peso"
+                        class="formControl"
+                        formControlName="peso">
+                        <mat-error *ngIf="campoValido('peso')">
+                            El peso es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <!-- Altura -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Altura</mat-label>
+                        <input matInput
+                        placeholder="Introduce la altura"
+                        class="formControl"
+                        formControlName="altura">
+                        <mat-error *ngIf="campoValido('altura')">
+                            La altura es obligatoria
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <!-- Grasa -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Materia Grasa</mat-label>
+                        <input matInput
+                        placeholder="Introduce la materia grasa"
+                        class="formControl"
+                        formControlName="grasa">
+                    </mat-form-field>
+                    
+                    <!-- Musculo -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Músculo</mat-label>
+                        <input matInput
+                        placeholder="Introduce la masa muscular"
+                        class="formControl"
+                        formControlName="musculo">
+                    </mat-form-field>               
+                </div>
+                
+                <div class="col d-flex justify-content-between">
+                    <!-- Agua -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Agua</mat-label>
+                        <input matInput
+                            placeholder="Introduce el agua"
+                            class="formControl"
+                            formControlName="agua">
+                    </mat-form-field>
+
+                    <!-- Abdomen -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Abdomen</mat-label>
+                        <input matInput
+                            placeholder="Introduce los cms de abdomen"
+                            class="formControl"
+                            formControlName="abdomen">
+                    </mat-form-field>
+
+                    <!-- Cintura -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cintura</mat-label>
+                        <input matInput
+                            placeholder="Introduce los cms de cintura"
+                            class="formControl"
+                            formControlName="cintura">
+                    </mat-form-field>
+
+                        
+                </div>
+
+                
+                <hr class="text-white">
+                <div class="demo-button-container float-end mt-3">
+                    <button mat-raised-button
+                        color="primary"
+                        (click)="guardar()"
+                        class="button">
+                        Guardar
+                    </button>
+                    <button mat-raised-button
+                        color="warn"
+                        (click)="cancelar()"
+                        class="button">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div *ngIf="hidden">
+    <app-mediciones-cliente [idCliente]="idCliente"></app-mediciones-cliente>
+</div>

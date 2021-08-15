@@ -5,7 +5,9 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ConfiguracionComponent } from './pages/configuracion/configuracion.component';
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { MultimediaComponent } from './pages/multimedia/multimedia.component';
+import { NuevaActividadClienteComponent } from './components/nueva-actividad-cliente/nueva-actividad-cliente.component';
 import { NuevoClienteComponent } from './components/nuevo-cliente/nuevo-cliente.component';
+import { NuevoPagoClienteComponent } from './components/nuevo-pago-cliente/nuevo-pago-cliente.component';
 import { ReservasComponent } from './pages/reservas/reservas.component';
 import { InfoClienteComponent } from './pages/info-cliente/info-cliente.component';
 
@@ -32,9 +34,21 @@ const routes: Routes = [
           path:'reservas',
           component: ReservasComponent
         },
+        // {
+        //   path: 'editarCliente/:id',
+        //   component: NuevoClienteComponent
+        // },
         {
-          path:'nuevo',
+          path:'nuevoCliente',
           component: NuevoClienteComponent
+        },
+        // {
+        //   path:'nuevaActividad:/:id',
+        //   component: NuevaActividadClienteComponent
+        // },
+        {
+          path: 'nuevoPago:/:id',
+          component: NuevoPagoClienteComponent
         },
         {
           path:'info/:id',

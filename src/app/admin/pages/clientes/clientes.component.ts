@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteListado, Cliente } from '../../interfaces/cliente.interface';
-import { element } from 'protractor';
 
 
 
@@ -33,7 +32,7 @@ const ELEMENT_DATA: ClienteListado[] = [
 
 export class ClientesComponent {
 
-  @Input() cliente!:Cliente;
+  
 
   displayedColumns =
   ['id', 'nombre', 'apellidos', 'telefono', 'email', 'pagado', 'acciones'];
@@ -52,12 +51,13 @@ export class ClientesComponent {
     }
 
     addNew(){
-      this.router.navigate(['./admin/nuevo']);
+      this.router.navigate(['./admin/nuevoCliente']);
     }
 
     edit(cliente: any){
-      console.log(element);
-      //this.router.navigate(['../admin/info', cliente.id]);
+      console.log(cliente);
+      this.router.navigate(['./admin/info', cliente.id]);
+      
     }
     delete(element: any){
 

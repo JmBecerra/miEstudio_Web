@@ -1,1 +1,22 @@
-<p>info-cliente works!</p>
+<div class="row mt-5 mb-2">
+    <div class="col">
+        <h1 class="text-white text-center">JOSE MARIA BECERR VILES</h1>
+    </div>
+</div>
+<div class="mb-5">
+    <mat-tab-group mat-align-tabs="center" class="mat-elevation-z4">
+        <mat-tab label="Datos">
+            <app-nuevo-cliente [cliente]="id"></app-nuevo-cliente>          
+        </mat-tab>
+      <mat-tab label="Actividades" [ngSwitch]="opcion">    
+          <app-actividades-cliente [idCliente]="id"  ></app-actividades-cliente>
+      </mat-tab>
+      <mat-tab label="Pagos">
+            <app-pagos-cliente [idCliente] ="id"></app-pagos-cliente>
+      </mat-tab>
+      <mat-tab label="Mediciones">
+        <app-mediciones-cliente [idCliente] ="id"></app-mediciones-cliente>
+      </mat-tab>
+    </mat-tab-group>
+
+</div>

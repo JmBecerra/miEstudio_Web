@@ -18,25 +18,89 @@
                 (click)="sidenav.toggle()">
                 <mat-icon mat-list-icon>people</mat-icon>
                 <span>Clientes</span>
+               
             </a>
             <a routerLink="./multimedia"
                 mat-list-item
-                (click)="sidenav.toggle()">
+                [matMenuTriggerFor]="multimedia">
                 <mat-icon mat-list-icon>play_circle_filled</mat-icon>
-                <span>Multimedia</span>
+                <span>Multimedia</span>     
+                <mat-icon matSuffix >expand_more</mat-icon>
+
+                <mat-menu #multimedia="matMenu"  xPosition="before">
+                    <button routerLink="./"
+                        mat-menu-item
+                        (click)="sidenav.toggle()">                     
+                        <span>Videos</span>
+                    </button>
+                    
+
+                </mat-menu>
             </a>
             <a routerLink="./configuracion"
                 mat-list-item
-                (click)="sidenav.toggle()">
-                <mat-icon mat-list-icon>settings</mat-icon>
+                [matMenuTriggerFor]="configuracion">
+                <mat-icon mat-list-icon>settings</mat-icon>               
                 <span>Configuracion</span>
+                <mat-icon matSuffix >expand_more</mat-icon>
+
+                <mat-menu #configuracion="matMenu"  xPosition="before">
+                    <button routerLink="./"
+                        mat-menu-item
+                        (click)="sidenav.toggle()">                     
+                        <span>Tarifas</span>
+                    </button>
+                    <button routerLink="./"
+                            mat-menu-item
+                            (click)="sidenav.toggle()">
+                        <span>Tipos Actividades</span>
+                    </button>
+                    <button routerLink="./"
+                            mat-menu-item
+                            (click)="sidenav.toggle()">
+                        <span>Niveles</span>
+                    </button>
+                    <button routerLink="./"
+                            mat-menu-item
+                            (click)="sidenav.toggle()">
+                        <span>Actividades</span>
+                    </button>
+                    <button routerLink="./"
+                            mat-menu-item
+                            (click)="sidenav.toggle()">
+                        <span>Personal</span>
+                    </button>
+                    <button routerLink="./"
+                            mat-menu-item
+                            (click)="sidenav.toggle()">
+                        <span>Administradores</span>
+                    </button>
+
+                </mat-menu>
+                
+               
             </a>
             <a routerLink="./reservas"
                 mat-list-item
-                (click)="sidenav.toggle()">
+                [matMenuTriggerFor]="reservas">
                 <mat-icon mat-list-icon>event_note</mat-icon>
                 <span>Reservas</span>
-            </a>
+                <mat-icon matSuffix >expand_more</mat-icon>
+
+                <mat-menu #reservas="matMenu"
+                    xPosition="before">
+                    <button routerLink="./"
+                        mat-menu-item
+                        (click)="sidenav.toggle()">
+                        <span>Reservas</span>
+                    </button>
+                    <button routerLink="./"
+                        mat-menu-item
+                        (click)="sidenav.toggle()">
+                        <span>Agenda</span>
+                    </button>
+                </mat-menu>
+                </a>
 
         </mat-nav-list>
     </mat-sidenav>
@@ -51,7 +115,7 @@
                 <span class="spacer"></span>
                 <!-- <span>{{ auth.usuario }}</span> -->
                
-                <button mat-button>Perfil</button>
+              <button mat-button>Perfil</button>
                 <button mat-button>Ayuda</button>
                 <button mat-button
                     (click)="logout()">
@@ -61,8 +125,6 @@
     </mat-toolbar>
     <div class="container">
         <router-outlet></router-outlet>
-       
-
     </div>
 
 </mat-sidenav-container>

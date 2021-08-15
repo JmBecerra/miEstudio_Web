@@ -1,0 +1,125 @@
+<div *ngIf="hidden">
+<app-pagos-cliente></app-pagos-cliente>
+</div>
+<div *ngIf="!hidden">
+
+    <div class="row m-5">
+        <div class="col">
+            <h1>Nuevo Pago</h1>
+            <hr>
+    
+        </div>
+    </div>
+    <div class="row m-5">   
+        <form autocomplete="off"
+            [formGroup]="formNuevoPago"
+            (ngSubmit)="submitFormulario()">
+            <div class="col d-flex justify-content-between mb-3">
+                <!-- Fecha Cuota -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Fecha Cuota</mat-label>
+                    <input matInput 
+                        [matDatepicker]="fechaCuota"
+                        formControlName="fechaCuota">
+                    <mat-datepicker-toggle matSuffix
+                        [for]="fechaCuota"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaCuota>
+                        <mat-datepicker-actions>
+                            <button mat-button
+                                matDatepickerCancel>Cancelar</button>
+                            <button mat-raised-button
+                                color="primary"
+                                matDatepickerApply>Aceptar</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                    <mat-error *ngIf="campoValido('fechaCuota')">
+                        El fecha de inicio de cuota es obligatoria
+                    </mat-error>
+                </mat-form-field>
+        
+                <!-- Fecha Cobro -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Fecha Cobro</mat-label>
+                    <input matInput 
+                        [matDatepicker]="fechaCobro"
+                        formControlName="fechaCobro">
+                    <mat-datepicker-toggle matSuffix
+                        [for]="fechaCobro"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaCobro>
+                        <mat-datepicker-actions>
+                            <button mat-button
+                                matDatepickerCancel>Cancelar</button>
+                            <button mat-raised-button
+                                color="primary"
+                                matDatepickerApply>Aceptar</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                    <mat-error *ngIf="campoValido('fechaCobro')">
+                        El fecha de cobro es obligatoria
+                    </mat-error>
+                </mat-form-field>
+        
+                <!-- Precio -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Precio</mat-label>
+                    <input matInput
+                        class="formControl"
+                        formControlName="precio">
+                </mat-form-field>
+            </div>
+    
+            <div class="col d-flex justify-content-between">
+                <!-- Tarifa -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccione la tarifa</mat-label>
+                    <mat-select formControlName="tarifa">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let tarifa of tarifas" [value]="tarifa">
+                            {{ tarifa.numAct}} {{ tarifa.numAct | i18nPlural:tarifasMapa}} {{ tarifa.periodo}}
+    
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="campoValido('tarifa')">
+                        Debes seleccionar una tarifa
+                    </mat-error>
+                </mat-form-field>
+    
+    
+                <!-- Metodo -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccione unn método de pago</mat-label>
+                    <mat-select formControlName="metodo">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let metodo of metodos" [value]="metodo">
+                            {{metodo}}
+    
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="campoValido('tarifa')">
+                        Debes seleccionar un método
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-slide-toggle formControlName="pagado">Pagado</mat-slide-toggle>
+            </div>
+            <hr class="text-white">
+           <app-actividades-cliente [idCliente]="idCliente" [mostrar]=false></app-actividades-cliente>
+            <hr class="text-white">
+    
+            <div class="demo-button-container float-end mt-3">
+                <button mat-raised-button
+                    color="primary"
+                    class="button"
+                    type="submit">
+                    Guardar
+                </button>
+                <button mat-raised-button
+                    color="warn"
+                    (click)="cancelar()"
+                    class="button">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

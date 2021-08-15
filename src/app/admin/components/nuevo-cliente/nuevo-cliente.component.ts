@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ValidatorService } from 'src/app/shared/validator/validator.service';
-import { EmailValidatorService } from '../../../shared/validator/email-validator.service';
+
+
 
 @Component({
   selector: 'app-nuevo-cliente',
@@ -12,15 +13,21 @@ import { EmailValidatorService } from '../../../shared/validator/email-validator
   button{
   margin: 10px;
   }
+  .ap1, .ap2{
+    width: 100%;
+  }
   
   `
   ]
 })
+
 export class NuevoClienteComponent implements OnInit {
+
+
 
   hide = true;
   formNuevoCliente: FormGroup = this.fb.group({
-    codigo:[],
+    codigo:['',],
     nombre: ['', [ Validators.required, Validators.minLength(3) ] ],
     apellido1: ['', Validators.required],
     apellido2: [],
@@ -30,6 +37,9 @@ export class NuevoClienteComponent implements OnInit {
     contreseña:[]
   })
 
+
+
+  @Input() cliente: number=0;
   
    
   constructor(private fb: FormBuilder,
@@ -37,6 +47,10 @@ export class NuevoClienteComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.formNuevoCliente.controls['codigo'].disable();
+    this.formNuevoCliente.reset({
+      codigo:12345
+    })
   }
   submitFormulario(){
 

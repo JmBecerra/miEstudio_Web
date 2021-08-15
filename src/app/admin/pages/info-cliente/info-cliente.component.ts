@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-info-cliente',
@@ -8,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoClienteComponent implements OnInit {
 
-  constructor() { }
+  
+  id:number=0;
+  opcion:number =0;
+  constructor( private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params
+    .subscribe(pms =>{
+     this.id = pms['id'];
+    });
+
+    this.opcion = 1;
   }
 
 }
