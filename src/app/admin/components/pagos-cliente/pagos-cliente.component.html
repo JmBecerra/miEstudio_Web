@@ -14,25 +14,25 @@
         <!-- fechaact -->
         <ng-container matColumnDef="fechaAct" sticky>
           <th mat-header-cell *matHeaderCellDef>Fecha Cuota </th>
-          <td mat-cell *matCellDef="let element"> {{element.fechaAct}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.fechaAct | date:' dd MMMM yyyy'}} </td>
         </ng-container>
     
         <!-- fecahaCopbro -->
         <ng-container matColumnDef="fechaCobro">
           <th mat-header-cell *matHeaderCellDef> Fecha Cobro </th>
-          <td mat-cell *matCellDef="let element"> {{element.fechaCobro}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.fechaCobro | date:' dd MMMM yyyy'}} </td>
         </ng-container>
     
         <!-- Tarifa -->
         <ng-container matColumnDef="tarifa">
           <th mat-header-cell *matHeaderCellDef> Tarifa </th>
-          <td mat-cell *matCellDef="let element"> {{element.tarifa}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.numActividades}} {{ element.numActividades | i18nPlural:tarifasMapa}} de {{element.nombrePeriodo }} </td>
         </ng-container>
     
         <!-- Precio -->
         <ng-container matColumnDef="precio">
           <th mat-header-cell *matHeaderCellDef> Precio </th>
-          <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.precio}}€ </td>
         </ng-container>
   
         <!-- Pagado -->
@@ -43,16 +43,15 @@
   
     
         <!-- Acciones -->
-        <ng-container matColumnDef="acciones" stickyEnd>
+        <ng-container matColumnDef="acciones" stickyEnd >
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button matTooltip="Click to Edit" (click)="edit(element)" class="iconbutton" color="primary">
+          <td mat-cell *matCellDef="let element; first as isFirst" >
+            <button *ngIf="isFirst && cuotaIsActiva(element.fechaAct)" mat-icon-button matTooltip="Click to Edit" (click)="edit(element)" class="iconbutton" color="primary">
               <mat-icon>edit</mat-icon>
             </button> 
-            <button mat-icon-button matTooltip="Click to Delete" (click)="delete(element)" class="iconbutton" color="warn">
+            <button *ngIf="isFirst && cuotaIsActiva(element.fechaAct)" mat-icon-button matTooltip="Click to Delete" (click)="delete(element)" class="iconbutton" color="warn">
               <mat-icon>delete</mat-icon>
             </button> 
-           
           </td>
         </ng-container>
     
@@ -60,14 +59,18 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
+
     <div class="demo-button-container float-end mt-3" >
       <button mat-raised-button  color="primary" (click)="addNew()" class="button">
         Nuevo Pago
       </button>
   
     </div>
+    
 </div>
   <div *ngIf="hidden">
-    <app-nuevo-pago-cliente [idCliente] ="idCliente"></app-nuevo-pago-cliente>
+    <app-nuevo-pago-cliente [pagoEdit]="pagoEdit" [idCliente] ="idCliente"></app-nuevo-pago-cliente>
 
   </div>
+
+

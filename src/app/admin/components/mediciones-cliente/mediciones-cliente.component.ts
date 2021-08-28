@@ -1,15 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
-import { MedicionListado } from '../../interfaces/mediciones.interface';
+import { Subscription } from 'rxjs';
 
-const ELEMENT_DATA: MedicionListado[] = [
-  {fecha:'03/05/2021', peso: 80, altura:172, grasa:18, musculo: 62, agua: 55, abdomen: 87, cintura:90},
-  {fecha:'04/04/2021', peso: 82, altura:172, grasa:20, musculo: 62, agua: 55, abdomen: 89, cintura:91}
+import { ConfirmarComponent } from '../confirmar/confirmar.component';
+
+import { MedicionService } from '../../services/medicion.service';
+
+import { Medicion, MedicionListado } from '../../interfaces/mediciones.interface';
 
 
-
-  
-];
 
 @Component({
   selector: 'app-mediciones-cliente',
@@ -30,26 +31,78 @@ export class MedicionesClienteComponent implements OnInit {
 
   displayedColumns =
   ['fecha', 'peso', 'altura', 'grasa', 'musculo','agua','abdomen','cintura', 'acciones'];
-  dataSource = ELEMENT_DATA;
+  dataSource: MedicionListado[] = [];
+
+
   @Input() idCliente =0;
+  medicionEdit!:MedicionListado;
   hidden: boolean = false;
+  subscription!: Subscription;
   
-  constructor() { }
+  constructor(private medicionService: MedicionService,
+              private toastr:ToastrService,
+              private dialog: MatDialog) { 
+
+              }
 
   ngOnInit(): void {
     this.hidden = false;
+    this.obtenerMediciones();
   }
 
-  edit(pago: any){
+  obtenerMediciones(){
+    this.subscription = this.medicionService.getMedicionesUsuario(this.idCliente)
+      .subscribe(resp => {
+        this.dataSource = resp;
+
+      }, error => {
+        console.log(error);
+      });
 
   }
 
-  delete(pago: any){
+
+  edit(medicion: any){
+    this.medicionEdit = medicion;
+    this.hidden = true;
+    this.ngOnDestroy();
+  }
+
+  delete(medicion: Medicion){
+    const dialog = this.dialog.open(ConfirmarComponent, {
+      width: '250px',
+     data: {...medicion}
+    });
+
+    dialog.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.medicionService.deleteMedicion(medicion.idMedicion)
+            .subscribe(resp => {
+              this.toastr.warning('Se ha podido borrar la medición con éxito', 'Medición borrada');
+              this.obtenerMediciones();
+            }, error => {
+              console.log(error);
+              this.toastr.error('Upss... no se ha podido borrar la medición', 'Medición no borrada');
+            });
+        }
+      }
+    );
+
+
+   
 
   }
 
   addNew(){
     this.hidden = true;
+    this.ngOnDestroy();
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    if(this.subscription){this.subscription.unsubscribe();}
   }
 
 

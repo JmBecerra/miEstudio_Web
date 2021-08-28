@@ -1,5 +1,5 @@
 export interface Medicion {
-    id:         number;
+    idMedicion: number;
     peso:       number;
     altura:     number;
     grasa:      number;
@@ -11,14 +11,16 @@ export interface Medicion {
 }
 
 export interface MedicionListado {
-    fecha:      string;
-    peso:       number;
-    altura:     number;
-    grasa:      number;
-    musculo:    number;
-    agua:       number;
-    abdomen:    number;
-    cintura:    number;
+    idMedicionUsaurio   :number
+    idMedicion          :number;
+    fecha               :string;
+    peso                :number;
+    altura              :number;
+    grasa               :number;
+    musculo             :number;
+    agua                :number;
+    abdomen             :number;
+    cintura             :number;
     
 
 }

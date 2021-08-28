@@ -1,5 +1,5 @@
 export interface Pago {
-    id:           number;
+    idPago:       number;
     fechaAct:     Date;
     fechaCobro:   Date;
     pagado:       boolean;

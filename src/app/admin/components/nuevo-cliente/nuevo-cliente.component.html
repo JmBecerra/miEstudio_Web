@@ -1,184 +1,207 @@
+<div class="row m-3">
+    <div class="col">
 
-<div class="row m-5">
-    <div class="col">
-        <h1 class="text-white">{{ (cliente) ? 'Editar': 'Alta nuevo'  }}</h1>
-        <hr class="text-white">
-    </div>
-</div>
-<div class="row m-5">
-    <div class="col">
-        <form autocomplete="off" [formGroup]="formNuevoCliente" (ngSubmit)="submitFormulario()">
-           <div class="row">
-               <div class="col d-flex justify-content-between">
-                   <!-- Nombre -->
-                   <mat-form-field appearance="fill">
-                       <mat-label>Nombre</mat-label>
-                       <input matInput
-                           placeholder="Introduce el nombre"
-                           class="formControl"
-                           formControlName="nombre">
-                       <mat-error *ngIf="campoNoValido('nombre')">
-                           El nombre es obligatorio
-                       </mat-error>
-                   </mat-form-field>
-                   
-                   <!-- Codigo -->
-                   <mat-form-field appearance="fill">
-                       <mat-label>Codigo</mat-label>
-                       <input matInput
-                           value="123145"
-                           class="formControl"
-                           formControlName="codigo">
-                   </mat-form-field>
-               </div>
+        <div class="row" *ngIf="!clienteEdit">
+            <div class="col">
+                <h1 class="text-white">Alta nuevo</h1>
+                <hr class="text-white">
             </div>
-
-            <div class="flex-row justify-content-between d-flex flex-nowrap flex-md-wrap">
-                <div class="col-lg-5 col-md-12">
-                    <!-- Apellido1 -->
-                    <mat-form-field class="ap1" appearance="fill">
-                        <mat-label>1er Apellido:</mat-label>
-                        <input matInput
-                            size="200"
-                            placeholder="Introduce el primer apellido"
-                            class="formControl"
-                            formControlName="apellido1">
-                        <mat-error *ngIf="campoNoValido('apellido1')">
-                            El primer apellido es obligatorio
-                        </mat-error>
-                    </mat-form-field>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form autocomplete="off" [formGroup]="formNuevoCliente" >
+                   <div class="row mb-3">
+                       <div class="col d-flex justify-content-between">
+                           <!-- Nombre -->
+                           <mat-form-field appearance="fill">
+                               <mat-label>Nombre</mat-label>
+                               <input matInput
+                                   placeholder="Introduce el nombre"
+                                   class="formControl"
+                                   formControlName="nombre">
+                               <mat-error *ngIf="campoNoValido('nombre')">
+                                   El nombre es obligatorio
+                               </mat-error>
+                           </mat-form-field>
+                           
+                           <!-- Codigo -->
+                           <mat-form-field appearance="fill">
+                               <mat-label>Codigo</mat-label>
+                               <input matInput
+                                   value="123145"
+                                   class="formControl"
+                                   formControlName="codigo">
+                           </mat-form-field>
+                       </div>
                     </div>
-                    <div class="col-lg-5 col-md-12 ">
-                    <!-- Apellido2 -->    
-                    <mat-form-field class="ap2" appearance="fill">
-                        <mat-label>2er Apellido:</mat-label>
-                        <input matInput
-                            size="200"
-                            placeholder="Introduce el segundo apellido"
-                            class="formControl"
-                            formControlName="apellido2">
-                    </mat-form-field>          
-
-                </div>
-            </div>
-                  
-            <div class="row ">
-                <div class="col d-flex justify-content-between">
-                    <!-- DNi -->
-                    <mat-form-field appearance="fill">
-                        <mat-label>DNI</mat-label>
-                        <input matInput
-                            placeholder="Introduce el Dni"
-                            class="formControl"
-                            formControlName="dni">
-                        <!-- <mat-error *ngIf="campoNoValido('dni')">
-                                                El nombre es obligatorio
-                                            </mat-error> -->
-                    </mat-form-field>
         
-                    <!-- Telefono -->
+                    <div class="flex-row justify-content-between d-flex flex-nowrap flex-md-wrap mb-3">
+                        <div class="col-lg-5 col-md-12 ">
+                            <!-- Apellido1 -->
+                            <mat-form-field class="ap1" appearance="fill">
+                                <mat-label>1er Apellido:</mat-label>
+                                <input matInput
+                                    placeholder="Introduce el primer apellido"
+                                    class="formControl"
+                                    formControlName="apellido1">
+                                <mat-error *ngIf="campoNoValido('apellido1')">
+                                    El primer apellido es obligatorio
+                                </mat-error>
+                            </mat-form-field>
+                            </div>
+                            <div class="col-lg-5 col-md-12 ">
+                            <!-- Apellido2 -->    
+                            <mat-form-field class="ap2" appearance="fill">
+                                <mat-label>2er Apellido:</mat-label>
+                                <input matInput
+                                    placeholder="Introduce el segundo apellido"
+                                    class="formControl"
+                                    formControlName="apellido2">
+                            </mat-form-field>          
+        
+                        </div>
+                    </div>
+                          
+                    <div class="row mb-3">
+                        <div class="col d-flex justify-content-between">
+                            <!-- DNi -->
+                            <mat-form-field appearance="fill">
+                                <mat-label>DNI</mat-label>
+                                <input matInput
+                                    placeholder="Introduce el Dni"
+                                    class="formControl"
+                                    formControlName="dni">
+                                <mat-error *ngIf="campoNoValido('dni')">
+                                    El dni es obligatorio
+                                 </mat-error>
+                            </mat-form-field>
+                
+                            <!-- Telefono -->
+                            <mat-form-field appearance="fill">
+                                <mat-label>Telefono</mat-label>
+                                <input matInput
+                                    placeholder="Introduce el telefono"
+                                    class="formControl"
+                                    formControlName="telefono">
+                            </mat-form-field>
+        
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <!-- Email -->
+                            <mat-form-field appearance="fill" class="email">
+                                <mat-label>Email</mat-label>
+                                <input matInput
+                                    placeholder="Introduce el email"
+                                    class="formControl"
+                                    formControlName="email">
+                            </mat-form-field>
+                            <mat-error *ngIf="campoNoValido('email')">
+                                El email es obligatorio
+                            </mat-error>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col flex-wrap d-flex justify-content-between">
+                            <!-- FechaNac -->
+                            <mat-form-field appearance="fill"
+                                    class="example-form-field">
+                                <mat-label>Fecha Nacimiento</mat-label>
+                                <input matInput
+                                        [matDatepicker]="fechNac"
+                                        formControlName="fechaNac">
+                                <mat-datepicker-toggle matSuffix
+                                        [for]="fechNac"></mat-datepicker-toggle>
+                                <mat-datepicker #fechNac>
+                                    <mat-datepicker-actions>
+                                        <button mat-button
+                                                matDatepickerCancel>Cancelar</button>
+                                        <button mat-raised-button
+                                                color="primary"
+                                                matDatepickerApply>Aceptar</button>
+                                    </mat-datepicker-actions>
+                                    </mat-datepicker>
+                            </mat-form-field>
+                            
+                            
+                            <!-- FechaAlta -->
+                            <mat-form-field appearance="fill"
+                                class="example-form-field">
+                                <mat-label>Fecha de alta</mat-label>
+                                <input matInput
+                                    [matDatepicker]="fechAlt"
+                                    formControlName="fechaAlta">
+                                <mat-datepicker-toggle matSuffix
+                                    [for]="fechAlt"></mat-datepicker-toggle>
+                                <mat-datepicker #fechAlt>
+                                    <mat-datepicker-actions>
+                                        <button mat-button
+                                            matDatepickerCancel>Cancelar</button>
+                                        <button mat-raised-button
+                                            color="primary"
+                                            matDatepickerApply>Aceptar</button>
+                                    </mat-datepicker-actions>
+                                </mat-datepicker>
+                            </mat-form-field>
+                            
+                             <!-- FechaMod -->
+                            <mat-form-field appearance="fill"
+                                class="example-form-field">
+                                <mat-label>Fecha de modificación</mat-label>
+                                <input matInput
+                                    [matDatepicker]="fechMod"
+                                    formControlName="fechaMod">
+                                <mat-datepicker-toggle matSuffix
+                                    [for]="fechMod"></mat-datepicker-toggle>
+                                <mat-datepicker #fechMod>
+                                    <mat-datepicker-actions>
+                                        <button mat-button
+                                            matDatepickerCancel>Cancelar</button>
+                                        <button mat-raised-button
+                                            color="primary"
+                                            matDatepickerApply>Aceptar</button>
+                                    </mat-datepicker-actions>
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- Password -->
                     <mat-form-field appearance="fill">
-                        <mat-label>Telefono</mat-label>
+                        <mat-label>Contreseña</mat-label>
                         <input matInput
-                            placeholder="Introduce el telefono"
-                            class="formControl"
-                            formControlName="telefono">
-                    </mat-form-field>
-
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col flex-sm-wrap d-flex justify-content-between">
-                    <!-- FechaNac -->
-                    <mat-form-field appearance="fill"
-                            class="example-form-field">
-                        <mat-label>Fecha Nacimiento</mat-label>
-                        <input matInput
-                                [matDatepicker]="fechNac">
-                        <mat-datepicker-toggle matSuffix
-                                [for]="fechNac"></mat-datepicker-toggle>
-                        <mat-datepicker #fechNac>
-                            <mat-datepicker-actions>
-                                <button mat-button
-                                        matDatepickerCancel>Cancelar</button>
-                                <button mat-raised-button
-                                        color="primary"
-                                        matDatepickerApply>Aceptar</button>
-                            </mat-datepicker-actions>
-                            </mat-datepicker>
+                            [type]="hide ? 'password' : 'text'"
+                            formControlName="password">
+                        <button mat-icon-button
+                            matSuffix
+                            (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                     </mat-form-field>
                     
                     
-                    <!-- FechaAlta -->
-                    <mat-form-field appearance="fill"
-                        class="example-form-field">
-                        <mat-label>Fecha de alta</mat-label>
-                        <input matInput
-                            [matDatepicker]="fechAlt">
-                        <mat-datepicker-toggle matSuffix
-                            [for]="fechAlt"></mat-datepicker-toggle>
-                        <mat-datepicker #fechAlt>
-                            <mat-datepicker-actions>
-                                <button mat-button
-                                    matDatepickerCancel>Cancelar</button>
-                                <button mat-raised-button
-                                    color="primary"
-                                    matDatepickerApply>Aceptar</button>
-                            </mat-datepicker-actions>
-                        </mat-datepicker>
-                    </mat-form-field>
-                    
-                     <!-- FechaMod -->
-                    <mat-form-field appearance="fill"
-                        class="example-form-field">
-                        <mat-label>Fecha de modificación</mat-label>
-                        <input matInput
-                            [matDatepicker]="fechMod">
-                        <mat-datepicker-toggle matSuffix
-                            [for]="fechMod"></mat-datepicker-toggle>
-                        <mat-datepicker #fechMod>
-                            <mat-datepicker-actions>
-                                <button mat-button
-                                    matDatepickerCancel>Cancelar</button>
-                                <button mat-raised-button
-                                    color="primary"
-                                    matDatepickerApply>Aceptar</button>
-                            </mat-datepicker-actions>
-                        </mat-datepicker>
-                    </mat-form-field>
-                </div>
+                    <hr class="text-white">
+                    <div class="demo-button-container float-end mt-3">
+                        <button mat-raised-button
+                            color="primary"
+                            (click)="submitFormulario()"
+                            class="button"
+        
+                            [disabled]="formNuevoCliente.invalid">
+                            Guardar
+                        </button>
+                        <button mat-raised-button
+                            color="warn"
+                            (click)="cancelar()"
+                            class="button">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
             </div>
-            <!-- Password -->
-            <mat-form-field appearance="fill">
-                <mat-label>Contreseña</mat-label>
-                <input matInput
-                    [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button
-                    matSuffix
-                    (click)="hide = !hide"
-                    [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-            
-            
-            <hr class="text-white">
-            <div class="demo-button-container float-end mt-3">
-                <button mat-raised-button
-                    color="primary"
-                    (click)="guardar()"
-                    class="button">
-                    Guardar
-                </button>
-                <button mat-raised-button
-                    color="warn"
-                    (click)="cancelar()"
-                    class="button">
-                    Cancelar
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>

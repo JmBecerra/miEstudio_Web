@@ -36,11 +36,11 @@
         </ng-container>
 
         <!-- Hora -->
-        <ng-container matColumnDef="hora">
+        <ng-container matColumnDef="horario">
             <th mat-header-cell
-                *matHeaderCellDef> Hora </th>
+                *matHeaderCellDef> Horario </th>
             <td mat-cell
-                *matCellDef="let element"> {{element.hora}} </td>
+                *matCellDef="let element"> {{element.horario}} </td>
         </ng-container>
 
         <!-- Ocupacion -->
@@ -93,5 +93,6 @@
   </div>
 </div>
   <div *ngIf="hidden">
-    <app-actividades-cliente [idCliente]="cliente"></app-actividades-cliente>
+    <app-actividades-cliente [idCliente]="idCliente"></app-actividades-cliente>
+   
   </div>

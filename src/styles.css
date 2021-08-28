@@ -9,3 +9,18 @@ body {  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-toolbar, .mat-sidenav{
+    position: fixed;
+    z-index: 99;
+}
+
+.container{
+    margin-top: 100px;
+}
+
+mat-nav-list{
+    margin-top: 60px;
+}
+
+

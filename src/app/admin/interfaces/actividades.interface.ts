@@ -9,10 +9,12 @@ export interface Actividad {
 }
 
 export interface ActividadListado {
+    idActUser: number;
+    idActividad:number;
     tipo: string;
     nivel: string;
     dia: string;
-    hora: string;
+    horario: string;
     ocupacion: number;
 
 }

@@ -1,6 +1,4 @@
-<div *ngIf="hidden">
-<app-pagos-cliente></app-pagos-cliente>
-</div>
+
 <div *ngIf="!hidden">
 
     <div class="row m-5">
@@ -12,8 +10,7 @@
     </div>
     <div class="row m-5">   
         <form autocomplete="off"
-            [formGroup]="formNuevoPago"
-            (ngSubmit)="submitFormulario()">
+            [formGroup]="formNuevoPago">
             <div class="col d-flex justify-content-between mb-3">
                 <!-- Fecha Cuota -->
                 <mat-form-field appearance="fill">
@@ -75,7 +72,7 @@
                     <mat-select formControlName="tarifa">
                         <mat-option>--</mat-option>
                         <mat-option *ngFor="let tarifa of tarifas" [value]="tarifa">
-                            {{ tarifa.numAct}} {{ tarifa.numAct | i18nPlural:tarifasMapa}} {{ tarifa.periodo}}
+                            {{ tarifa.numActividades}} {{ tarifa.numActividades | i18nPlural:tarifasMapa}} {{ tarifa.nombrePeriodo}}
     
                         </mat-option>
                     </mat-select>
@@ -87,7 +84,7 @@
     
                 <!-- Metodo -->
                 <mat-form-field appearance="fill">
-                    <mat-label>Seleccione unn método de pago</mat-label>
+                    <mat-label>Seleccione un método de pago</mat-label>
                     <mat-select formControlName="metodo">
                         <mat-option>--</mat-option>
                         <mat-option *ngFor="let metodo of metodos" [value]="metodo">
@@ -102,15 +99,17 @@
     
                 <mat-slide-toggle formControlName="pagado">Pagado</mat-slide-toggle>
             </div>
-            <hr class="text-white">
-           <app-actividades-cliente [idCliente]="idCliente" [mostrar]=false></app-actividades-cliente>
-            <hr class="text-white">
+            <!-- <hr class="text-white">
+           <app-actividades-cliente [mostrar]=false></app-actividades-cliente>
+           [idCliente]="idCliente" 
+            <hr class="text-white"> -->
     
             <div class="demo-button-container float-end mt-3">
                 <button mat-raised-button
                     color="primary"
                     class="button"
-                    type="submit">
+                    (click)="submitFormulario()"
+                    [disabled]="formNuevoPago.invalid">
                     Guardar
                 </button>
                 <button mat-raised-button
@@ -122,4 +121,7 @@
             </div>
         </form>
     </div>
+</div>
+<div *ngIf="hidden">
+    <app-pagos-cliente [idCliente]="idCliente"></app-pagos-cliente>
 </div>

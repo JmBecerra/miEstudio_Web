@@ -1,57 +1,149 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PagoListado } from '../../interfaces/pagos.interface';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
-const ELEMENT_DATA: PagoListado[] = [
-  {fechaAct:'01/05/2021', fechaCobro:'07/05/2021',tarifa:'Mensual 3 sesiones',precio: '170€',pagado:true},
-  {fechaAct:'01/04/2021', fechaCobro:'06/054/2021',tarifa:'Mensual 1 sesiones',precio: '70€',pagado:true},
+import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
+import { ConfirmarComponent } from '../confirmar/confirmar.component';
+
+import { PagoService } from '../../services/pago.service';
+import { Pago, PagoListado } from '../../interfaces/pagos.interface';
 
 
-  
-];
 
 @Component({
   selector: 'app-pagos-cliente',
   templateUrl: './pagos-cliente.component.html',
   styles: [`
   table {
-    
     width: 100%;
   }
-
   button {
     margin: 16px 8px;
   } 
-    
   `
-
   ]
 })
-export class PagosClienteComponent implements OnInit {
+export class PagosClienteComponent implements OnInit{
 
   @Input() idCliente: number=0;
+
   hidden: boolean = false;
+
+  pagoEdit!: Pago;
+  subcription! : Subscription;
+
+  tarifasMapa = {
+    '=1':'sesión',
+    'other':'sesiones'
+  }
 
   displayedColumns =
   ['fechaAct', 'fechaCobro', 'tarifa', 'precio', 'pagado', 'acciones'];
-  dataSource = ELEMENT_DATA;
-  constructor(private router: Router) { }
+  dataSource = [];
+
+  constructor(private router: Router,
+              private pagosService: PagoService,
+              private toastr: ToastrService,
+              private dialog: MatDialog) { 
+               
+              }
 
   ngOnInit(): void {
+    console.log('OnINtiPagpos');
     this.hidden = false;
+    this.obtenerDatos();
+  }
+
+  obtenerDatos(){
+    this.subcription = this.pagosService.getPagosUsuario(this.idCliente)
+      .subscribe( resp =>{
+       
+        this.dataSource = resp;
+        this.dataSource.sort((a,b) =>{
+          var fechaA = new Date(a).getTime();
+          var fechaB = new Date(b).getTime();
+          return fechaA < fechaB ? -1: 1;
+          
+        });
+       
+        
+      }, error=>{
+        console.log(error);
+      });
+  }
+
+  deletePago(idPago: number){
+    this.pagosService.deletePago(idPago)
+      .subscribe(resp => {
+        this.toastr.warning('El pago se borrado con éxito','Pago borrado');
+        this.obtenerDatos();
+       
+      }, error =>{
+        console.log(error);
+      });
+      
   }
 
   edit(pago: any){
-
+    this.ngOnDestroy(); 
+    this.pagoEdit = pago;
+     
+    this.hidden = true;
+   
+    
   }
 
   delete(pago: any){
 
+    const dialog = this.dialog.open(ConfirmarComponent, {
+      width: '250px',
+      data: []//{...this.heroe} par ano mandar el objeto sino las proipiedad como string
+    });
+
+    dialog.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.deletePago(pago.idPago);
+        }
+      }
+    );
+    
   }
 
   addNew(){
+    this.ngOnDestroy();
+    if(this.isCorrientePagos()){
+      
+      this.hidden= true;
+    }
     
-    this.hidden= true;
+  }
+
+  cuotaIsActiva(fecha: Date): boolean{
+    var fechaCuota = new Date(fecha);
+    let mesCuota = fechaCuota.getMonth();
+    let mesActual = new Date().getMonth();
+    if(mesCuota == mesActual ){
+      return true;
+    }
+    return false;
+  }
+
+  isCorrientePagos(): boolean{
+    let iscorrientePagos: boolean = true;
+    this.dataSource.forEach( ({ pagado }) =>{
+      iscorrientePagos =  pagado == false ? false: true;
+
+    })
+
+    return iscorrientePagos;
+  }
+  
+  ngOnDestroy():void{
+   
+    if(this.subcription){ this.subcription.unsubscribe();}
   }
 
 }

@@ -13,47 +13,47 @@
       <!-- id -->
       <ng-container matColumnDef="id" sticky>
         <th mat-header-cell *matHeaderCellDef> Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.idUsuario}} </td>
       </ng-container>
   
       <!-- nombre -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.nombre}} </td>
       </ng-container>
   
       <!-- apellidos -->
       <ng-container matColumnDef="apellidos">
         <th mat-header-cell *matHeaderCellDef> Apellidos </th>
-        <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.apellido1}} {{ usuario.apellido2 }}</td>
       </ng-container>
   
       <!-- Telefono -->
       <ng-container matColumnDef="telefono">
         <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-        <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.telefono}} </td>
       </ng-container>
 
       <!-- Email -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        <td mat-cell *matCellDef="let usuario"> {{usuario.email}} </td>
       </ng-container>
 
         <!-- Pagado -->
         <ng-container matColumnDef="pagado">
           <th mat-header-cell *matHeaderCellDef> Pagado </th>
-          <td mat-cell *matCellDef="let element"> NO </td>
+          <td mat-cell *matCellDef="let usuario"> NO </td>
         </ng-container>
   
       <!-- Acciones -->
       <ng-container matColumnDef="acciones" stickyEnd>
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button matTooltip="Click to Edit" (click)="edit(element)" class="iconbutton" color="primary">
+        <td mat-cell *matCellDef="let usuario">
+          <button mat-icon-button matTooltip="Click to Edit" (click)="edit(usuario)" class="iconbutton" color="primary">
             <mat-icon>edit</mat-icon>
           </button> 
-          <button mat-icon-button matTooltip="Click to Delete" (click)="delete(element)" class="iconbutton" color="warn">
+          <button mat-icon-button matTooltip="Click to Delete" (click)="delete(usuario)" class="iconbutton" color="warn">
             <mat-icon>delete</mat-icon>
           </button> 
          
