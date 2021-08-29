@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup = this.fb.group({
     email:['',[Validators.required, Validators.email]],
-    password:['',[Validators.required]]
+    password:['',[Validators.required, Validators.minLength(6)]]
   })
 
   get emailErrorMsg(): string { //el get se ejecuta cuando angular detecta un cambio en el modulo
@@ -31,27 +32,41 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private fb : FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   login(){
-    this.router.navigate(['./admin']);
+     //console.log(this.formNuevoCliente.value);
+    if(this.formLogin.invalid){ 
+      console.log('invalid');
+      this.formLogin.markAllAsTouched();
+      return;
+    }
+    //this.router.navigate(['./admin']);
+    console.log(this.formLogin.get('email')?.value);
+    this.authService.login(this.formLogin.get('email')?.value)
+      .subscribe( resp => {
+       
+
+        if(resp.tipoUsuario == 1){
+          console.log('es de tipo admin');
+          this.router.navigate(['../admin']);
+        }
+      });
   }
 
-  ingresarSinLogin(){
-
+  verWebPublica(){
+    this.router.navigate(['../home']);
   }
 
   campoNoValido( campo: string){
     return this.formLogin.get(campo)?.invalid
           && this.formLogin.get(campo)?.touched;
-
   }
 
-  submitForm(){
 
-  }
 
 }
