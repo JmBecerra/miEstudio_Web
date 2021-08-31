@@ -1,72 +1,95 @@
 
 
-    <div class="d-flex justify-content-center flex-wrap">
+<div class="container mt-5">
     <div class="row mt-5">
-        <div class="col mt-5">
+        <div class="col text-center">
             <h1 class="text-center text-white">WOLFF FIT</h1>
             <h2 class="text-center text-white">Entrenamiento Personal</h2>
-            <hr class=" text-white">
-            <pre class="text-center text-white fw-light">Accede al panel de gestión</pre>
-    
+            <hr class="w-50 mx-auto text-white">
+            <pre class="h5 text-center text-white">Accede al panel de gestión</pre>
+            <pre *ngIf="loginIncorrecto" class="h6 text-center text-danger">El usuario y/o la contraseña no son correctas</pre>
         </div>
-        <div class="row">
-                <form autocomplete="off" [formGroup]="formLogin">
-                    <!-- Email -->
-                    <div class="row mb-3">
-                        <mat-form-field appearance=fill matAutocompleteOrigin="off">                   
-                            <mat-label >Introduce el email</mat-label>
-                            <input matInput                                 
-                                   placeholder="pat@example.com" 
-                                   formControlName="email" >
-                            <mat-error class="form-text text-danger"
-                                *ngIf="campoNoValido('email')">
-                                {{  emailErrorMsg }}
-                            </mat-error>
-                        </mat-form-field>
-             
-                    </div>
-        
-                    <!-- Password -->
-                    <div class="row mb-3 ">
-                        <mat-form-field appearance=fill matAutocompleteOrigin="off">                   
-                            <mat-label >Introduce la contreseña</mat-label>
-                            <input matInput                                 
-                                   placeholder="Paassword de tu cuenta" 
-                                   formControlName="password" >
-                            <mat-error class="form-text text-danger"
-                            *ngIf="campoNoValido('password')">
-                            La contraseña debe ser mayor de 6 caracteres
-                            </mat-error>
-                        </mat-form-field>
-             
-                    </div>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <button mat-raised-button 
-                                mat-center
-                                color="primary"
-                                class="justify-content-center"
-                                (click)="login()">
-                            Login
-                        </button>
-
-                    </div>
-                    
-                    
-                </form>
-
-            </div>   
-            <div class="row mt-5">
-                <div class="col">
-                    <button mat-raised-button 
-                            color="info"
-                            class="float-end"
-                            (click)="verWebPublica()">
-                        Acceder a la Web
-                    </button>
-                </div>
-            </div>
     </div>
 
 </div>
+<div class="contanier mt-5">
+    <form autocomplete="off"
+    [formGroup]="formLogin">
+        <div class="row justify-content-center mb-3 ">
+            <div class="col-4 text-center">
+                <!-- Email -->
+                <mat-form-field appearance="fill"
+                    matAutocompleteOrigin="off">
+                    <mat-label>Introduce el email</mat-label>
+                    <input matInput
+                        placeholder="pat@example.com"
+                        formControlName="email"
+                        >
+                    <mat-error class="form-text text-danger"
+                        *ngIf="campoNoValido('email')">
+                        {{ emailErrorMsg }}
+                    </mat-error>
+                </mat-form-field>
+        
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4 text-center">
+                <mat-form-field appearance="fill"
+                    matAutocompleteOrigin="off">
+                    <mat-label>Introduce la contreseña</mat-label>
+                    <input matInput
+                    [type]="hide ? 'password' : 'text'"
+                    formControlName="password">
+                <button mat-icon-button
+                    matSuffix
+                    (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                    <mat-error class="form-text text-danger"
+                        *ngIf="campoNoValido('password')">
+                        La contraseña debe ser mayor de 6 caracteres
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-2 text-center">
+                <button mat-raised-button
+                        mat-center
+                        class="login"
+                        color="primary"
+                        (click)="login()">
+                Login
+                </button>
+            </div>
+        </div>
+        
+    </form>
+
+</div>
+    
+
+    <div class="row mt-5 divaccesoWeb">
+        <div class="col-10 ">
+            <button mat-raised-button
+                color="info"
+                class="float-end accesoWeb"
+                (click)="verWebPublica()">
+                Acceder a la Web
+            </button>
+        </div>
+    </div>
+
+  
+       
+
+           
+
+
+
+
 
 

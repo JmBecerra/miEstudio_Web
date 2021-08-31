@@ -70,7 +70,7 @@ export class MedicionesClienteComponent implements OnInit {
 
   delete(medicion: Medicion){
     const dialog = this.dialog.open(ConfirmarComponent, {
-      width: '250px',
+      width: '400px',
      data: {...medicion}
     });
 

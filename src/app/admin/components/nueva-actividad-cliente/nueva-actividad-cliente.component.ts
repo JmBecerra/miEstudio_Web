@@ -85,7 +85,7 @@ export class NuevaActividadClienteComponent implements OnInit {
   saveActividadCliente( idUsuario: number, idActividad: number){
     this.actividadService.saveActividadUsuario(idUsuario,idActividad)
         .subscribe(resp =>{
-          this.toastr.success('La actividad se ha creado con éxito','Actividad asignada')
+          //this.toastr.success('La actividad se ha creado con éxito','Actividad asignada')
         }, error =>{
           //console.log(error);
           this.toastr.error('Upss...la actividad no se ha podido creado con éxito','Actividad no asignada')
@@ -128,13 +128,18 @@ export class NuevaActividadClienteComponent implements OnInit {
 
   guardar(){
     let seleccion = this.selection.selected;
-    seleccion.forEach(row => {
-      this.saveActividadCliente(this.idCliente, row.idActividad,);
-    });
-    
+    if(seleccion.length > 0){
+      seleccion.forEach(row => {
+        this.saveActividadCliente(this.idCliente, row.idActividad,);
+      });
+      this.toastr.success('La actividad se ha creado con éxito','Actividad asignada');
+      this.hidden = true;
+      //window.location.reload();
 
+    }
     this.hidden = true;
-    window.location.reload();
+
+
     
   }
   cancelar(){

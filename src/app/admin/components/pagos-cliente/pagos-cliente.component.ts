@@ -98,7 +98,7 @@ export class PagosClienteComponent implements OnInit{
   delete(pago: any){
 
     const dialog = this.dialog.open(ConfirmarComponent, {
-      width: '250px',
+      width: '400px',
       data: []//{...this.heroe} par ano mandar el objeto sino las proipiedad como string
     });
 
@@ -117,15 +117,25 @@ export class PagosClienteComponent implements OnInit{
     if(this.isCorrientePagos()){
       
       this.hidden= true;
+    }else{
+      this.toastr.warning('Hay cuotas impagadas', 'Cuota Impagada');
     }
     
   }
 
-  cuotaIsActiva(fecha: Date): boolean{
-    var fechaCuota = new Date(fecha);
+  cuotaIsActiva(fechaAct: Date): boolean{
+    
+    var fechaCuota = new Date(fechaAct);
+    console.log(fechaCuota);
     let mesCuota = fechaCuota.getMonth();
     let mesActual = new Date().getMonth();
+    console.log('que es el dataspure', this.dataSource);
+    var pago: Pago = this.dataSource[0];
+    var pagado = pago.pagado;
+    console.log('pagado', pagado);
     if(mesCuota == mesActual ){
+      return true;
+    } else if (mesCuota !== mesActual && !pagado){
       return true;
     }
     return false;

@@ -9,6 +9,7 @@ import { ConfirmarComponent } from '../confirmar/confirmar.component';
 import { ActividadService } from '../../services/actividad.service';
 import { Actividad, ActividadListado } from '../../interfaces/actividades.interface';
 import { ToastrService } from 'ngx-toastr';
+import { PagoService } from '../../services/pago.service';
 
 
 // const ELEMENT_DATA: ActividadListado[] = [
@@ -45,8 +46,9 @@ export class ActividadesClienteComponent implements OnInit, OnDestroy {
 
 
   constructor(private dialog: MatDialog,
-              private  router: Router,
+              private router: Router,
               private actividadService: ActividadService,
+              private pagosService: PagoService,
               private toastr: ToastrService) {
                
               }
@@ -62,26 +64,31 @@ export class ActividadesClienteComponent implements OnInit, OnDestroy {
 
   delete(actividad: any){
     const dialog = this.dialog.open(ConfirmarComponent, {
-      width: '250px',
+      width: '450px',
       data: []//{...this.heroe} par ano mandar el objeto sino las proipiedad como string
     });
 
     dialog.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.actividadService.deleteActividadUsuario(actividad.idActUser)
-          .subscribe(resp => {
-            this.toastr.warning('El usuario fue elimnado con exito','Usuario eliminado')
-            this.obtenerDatos(this.idCliente);
-          }, error =>{
-            console.log(error);
-          });
+         
+            this.actividadService.deleteActividadUsuario(actividad.idActUser)
+            .subscribe(resp => {
+              this.toastr.warning('La actividad fue elimnada con exito','Actividad eliminada')
+              this.obtenerDatos(this.idCliente);
+            }, error =>{
+              console.log(error);
+            });
+
+         
         }
       }
     );
 
     
   }
+
+
 
   obtenerDatos(id: number){
     this.subcription =  this.actividadService.getActividadesUsuario(id)

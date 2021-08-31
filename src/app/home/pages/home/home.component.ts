@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styles: [`
   .container {
-    margin: 10px;
+    padding-top: 70px;
   }
+  
   `
   ]
 })
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(){
+  login(){  
     console.log('Login');
     this.router.navigate(['./auth/login']);
   }

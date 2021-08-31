@@ -11,6 +11,7 @@ import { Tarifa } from '../../interfaces/tarifas.interface';
 
 import { TarifaService } from '../../services/tarifa.service';
 import { PagoService } from '../../services/pago.service';
+import { leadingComment } from '@angular/compiler';
 
 
 @Component({
@@ -18,8 +19,13 @@ import { PagoService } from '../../services/pago.service';
   templateUrl: './nuevo-pago-cliente.component.html',
   styles: [`
   button{
-  margin: 10px;
+    margin: 10px;
+
   }
+   button span{
+    font-size: 25px!important;
+   }
+
   `
   ]
 })
@@ -33,7 +39,12 @@ export class NuevoPagoClienteComponent implements OnInit {
   isChecked = true;
 
   pago!:Pago;
-  tarifas: Tarifa[]=[]
+  private _pagos: Pago[]= [];
+  get pagos(): Pago[]{
+    return {...this._pagos }
+  }
+
+  tarifas: Tarifa[]=[];
   metodos: string[]=['Efectivo','Tarjeta'];
  
   //@Input() create:boolean = true;
@@ -80,7 +91,13 @@ export class NuevoPagoClienteComponent implements OnInit {
 
           this.formNuevoPago.controls['precio'].setValue(tarifa.precio +"€");
         }
-      })
+      });
+
+      this.pagoServices.getPagosUsuario(this.idCliente)
+        .subscribe(resp=>{
+            this._pagos = resp;
+           
+        })
   }
 
  initForm(){
@@ -113,8 +130,10 @@ export class NuevoPagoClienteComponent implements OnInit {
       return;
     }
     if(this.pagoEdit == undefined){
-      var createPago = this.recogerDatos();
-      this.createPago(createPago);
+      if(this.isCorrientePagos()){
+        var createPago = this.recogerDatos();
+        this.createPago(createPago);
+      }
       this.hidden = true;
      
     }else{
@@ -205,6 +224,31 @@ export class NuevoPagoClienteComponent implements OnInit {
         console.log(error);
         this.toastr.error('Upss...El pago no se ha actualizado con éxito','Pago no actulizado');
       });
+  }
+
+  isCorrientePagos():boolean{
+    console.log(this.pagos);
+    if(Object.keys(this.pagos).length !== 0 ){
+
+      var fechaCuota = new Date(this.pagos[0].fechaAct.toString());
+      var pagado: boolean = this.pagos[0].pagado;
+      var fecha1mesMas = new Date(fechaCuota.setMonth(fechaCuota.getMonth()+1));
+      
+      if(fecha1mesMas < new Date()  && !pagado){
+        console.log('cuota no activa');
+        this.toastr.warning('No se puede crear un nuevo pago, hay cuotos sin abonar','Cuota impagada')
+        return false;
+        }
+      if( fecha1mesMas > new Date() ){
+        this.toastr.warning('No se puede crear un nuevo pago, hay cuotas activas','Cuota activa')
+        console.log('cuota activa');
+        return false;
+      }
+      
+    }
+    console.log('se puede agraegar cuota');
+      return true;
+
   }
 
 

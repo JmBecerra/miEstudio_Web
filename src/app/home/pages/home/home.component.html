@@ -3,7 +3,7 @@
     <mat-sidenav #sidenav
         mode="push">
         <mat-toolbar color="primary">
-            <span>Mi Estudio</span>
+            <span style="font-size: 30px!important;">Mi Estudio</span>
             <span class="spacer"></span>
             <button mat-icon-button
                 (click)="sidenav.toggle()">
@@ -16,25 +16,25 @@
                 mat-list-item
                 (click)="sidenav.toggle()">
                 <mat-icon mat-list-icon>home</mat-icon>
-                <span>Home</span>
+                <span style="font-size: 25px!important;">Home</span>
             </a>
             <a routerLink="./multimedia"
                 mat-list-item
                 (click)="sidenav.toggle()">
                 <mat-icon mat-list-icon>play_circle_filled</mat-icon>
-                <span>Multimedia</span>
+                <span style="font-size: 25px!important;">Multimedia</span>
             </a>
             <a routerLink="./actividades"
                 mat-list-item
                 (click)="sidenav.toggle()">
                 <mat-icon mat-list-icon>pending_actions</mat-icon>
-                <span>Actividades</span>
+                <span style="font-size: 25px!important;">Actividades</span>
             </a>
             <a routerLink="./contacto"
                 mat-list-item
                 (click)="sidenav.toggle()">
                 <mat-icon mat-list-icon>contact_mail</mat-icon>
-                <span>Contacto</span>
+                <span style="font-size: 25px!important;">Contacto</span>
             </a>
 
         </mat-nav-list>
@@ -46,7 +46,7 @@
                     <mat-icon>menu</mat-icon>
                 </button>
                 <span class="spacer"></span>
-                <h1>WOLFF FIT - ENTRENAMIENTO PERSONAL</h1>
+                <h1 style="font-size: 40px!important;">WOLFF FIT - ENTRENAMIENTO PERSONAL</h1>
                 <span class="spacer"></span>
               
                 <button mat-button
@@ -61,9 +61,9 @@
                 </button>
            
     </mat-toolbar>
-    <div class="container">
+    <div class="container home">
         <router-outlet></router-outlet>
-        <app-home-screen></app-home-screen>
+        
     </div>
 
 </mat-sidenav-container>

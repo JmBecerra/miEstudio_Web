@@ -14,7 +14,10 @@ const routes: Routes = [
     path:'',
     component: HomeComponent,
     children: [
-
+      {
+        path:'',
+        component: HomeScreenComponent
+      },
       {
         path:'multimedia',
         component: MultimediaComponent

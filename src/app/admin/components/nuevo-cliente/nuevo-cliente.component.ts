@@ -25,25 +25,16 @@ import { Cliente } from '../../interfaces/cliente.interface';
   .ap1, .ap2, .email{
       width: 100%;
   }
+  mat-form-field{
+    margin-botton: 20px;
+  }
   `
   ]
 })
 
 export class NuevoClienteComponent implements OnInit {
 
-  // cliente:Cliente = {
-  //   idUsuario:0,
-  //   nombre:'',
-  //   apellido1:'',
-  //   apellido2:'',
-  //   dni:'',
-  //   telefono:'',
-  //   email:'',
-  //   alta:1,
-  //   password:'',
-  //   tipoUsuario:2
 
-  // };
   cliente!:Cliente;
   subcription!: Subscription;
   subcriptionClientes!: Subscription;

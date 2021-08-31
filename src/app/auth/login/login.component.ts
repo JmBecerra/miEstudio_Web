@@ -7,10 +7,45 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styles: [
+  styles: [`
+  mat-form-field{
+    width: 100%;
+  }
+  .container{
+    padding-top: 50px
+  }
+  button.login {
+    width: 100%;
+    height: 50px;
+    font-size: 20px
+  }
+  button.accesoWeb{
+    
+    width: 250px;
+    height: 60px;
+    font-size: 20px
+  }
+  .divaccesoWeb{
+    padding-right: 200px;
+  }
+  .mat-input-element{
+    color: white !important;
+    font-size: 25px;
+    margin-top: 10px;
+  }
+  .mb-3{
+    margin-bottom: 2rem !important;
+  }
+  mat-error{
+    font-size: 20px;
+  }
+  `
   ]
 })
 export class LoginComponent implements OnInit {
+
+  loginIncorrecto: boolean =  false;
+  hide = true;
 
   formLogin: FormGroup = this.fb.group({
     email:['',[Validators.required, Validators.email]],
@@ -36,6 +71,7 @@ export class LoginComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.loginIncorrecto =  false;
   }
 
   login(){
@@ -45,8 +81,8 @@ export class LoginComponent implements OnInit {
       this.formLogin.markAllAsTouched();
       return;
     }
-    //this.router.navigate(['./admin']);
-    console.log(this.formLogin.get('email')?.value);
+
+   
     this.authService.login(this.formLogin.get('email')?.value)
       .subscribe( resp => {
        
@@ -55,6 +91,13 @@ export class LoginComponent implements OnInit {
           console.log('es de tipo admin');
           this.router.navigate(['../admin']);
         }
+      }, error=>{
+        console.log('error en login');
+        this.loginIncorrecto = true;
+        this.formLogin.markAsPristine();
+        this.formLogin.markAsUntouched();
+        
+        
       });
   }
 

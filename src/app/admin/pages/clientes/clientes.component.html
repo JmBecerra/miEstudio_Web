@@ -5,6 +5,13 @@
       <hr class="text-white">
 
     </div>
+    
+  </div>
+  <div class="float-end mt-3" >
+    <button mat-raised-button  color="primary" (click)="addNew()" class="button">
+      Nuevo Cliente
+    </button>
+
   </div>
 
   <div class="mat-elevation-z8">
@@ -63,10 +70,5 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  </div>
-  <div class="demo-button-container float-end mt-3" >
-    <button mat-raised-button  color="primary" (click)="addNew()" class="button">
-      Nuevo Cliente
-    </button>
-
+    
   </div>
